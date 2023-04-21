@@ -3,6 +3,7 @@ package gui;
 import game.Game;
 import input.GameWindowListener;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 
 public class GameWindow extends Window {
@@ -21,6 +22,8 @@ public class GameWindow extends Window {
                 button.setEnabled(false);
                 button.setFont(new Font("Arial", Font.BOLD, 50));
                 button.setBorder(null);
+                button.setFocusPainted(false);
+                UIManager.put("Button.disabledText", new ColorUIResource(Color.BLACK));
                 panel.add(button);
                 buttons[column][row] = button;
             }
@@ -44,13 +47,14 @@ public class GameWindow extends Window {
         game.right();
     }
 
-    public void display(int[][] gameField) {
+    public void display(int[][] gameField, int points) {
         for (int column = 0; column < size; column++) {
             for (int row = 0; row < size; row++) {
                 buttons[column][row].setText(String.valueOf(gameField[column][row]));
                 buttons[column][row].setBackground(getColor(gameField[column][row]));
             }
         }
+        this.setTitle("2048 - " + points);
         panel.repaint();
     }
 

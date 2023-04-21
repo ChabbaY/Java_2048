@@ -10,12 +10,13 @@ public class Game {
      * dimension of the gameField e.g. 3x3
      */
     private final int size;
+    private int points = 0;
     public Game(GameWindow window, int size) {
         this.window = window;
         this.size = size;
         gameField = new int[size][size];
         prefill();
-        window.display(gameField);
+        window.display(gameField, points);
     }
 
     private void prefill() {
@@ -41,6 +42,7 @@ public class Game {
             if (gameField[column][row] == 0) {
                 gameField[column][row] = 2;
                 filled = true;
+                points += 2;
             }
         } while (!filled);
     }
@@ -52,6 +54,7 @@ public class Game {
                     if (gameField[column][row] == gameField[column][row - 1]) {
                         gameField[column][row - 1] *= 2;
                         gameField[column][row] = 0;
+                        points += gameField[column][row - 1];
                     } else if (gameField[column][row - 1] == 0) {
                         gameField[column][row - 1] = gameField[column][row];
                         gameField[column][row] = 0;
@@ -60,7 +63,7 @@ public class Game {
             }
         }
         fillEmpty();
-        window.display(gameField);
+        window.display(gameField, points);
     }
     public void down() {
         for (int i = 0; i < (size - 1); i++) {
@@ -69,6 +72,7 @@ public class Game {
                     if (gameField[column][row] == gameField[column][row + 1]) {
                         gameField[column][row + 1] *= 2;
                         gameField[column][row] = 0;
+                        points += gameField[column][row + 1];
                     } else if (gameField[column][row + 1] == 0) {
                         gameField[column][row + 1] = gameField[column][row];
                         gameField[column][row] = 0;
@@ -77,7 +81,7 @@ public class Game {
             }
         }
         fillEmpty();
-        window.display(gameField);
+        window.display(gameField, points);
     }
     public void left() {
         for (int i = 0; i < (size - 1); i++) {
@@ -86,6 +90,7 @@ public class Game {
                     if (gameField[column][row] == gameField[column - 1][row]) {
                         gameField[column - 1][row] *= 2;
                         gameField[column][row] = 0;
+                        points += gameField[column - 1][row];
                     } else if (gameField[column - 1][row] == 0) {
                         gameField[column - 1][row] = gameField[column][row];
                         gameField[column][row] = 0;
@@ -94,7 +99,7 @@ public class Game {
             }
         }
         fillEmpty();
-        window.display(gameField);
+        window.display(gameField, points);
     }
     public void right() {
         for (int i = 0; i < (size - 1); i++) {
@@ -103,6 +108,7 @@ public class Game {
                     if (gameField[column][row] == gameField[column + 1][row]) {
                         gameField[column + 1][row] *= 2;
                         gameField[column][row] = 0;
+                        points += gameField[column + 1][row];
                     } else if (gameField[column + 1][row] == 0) {
                         gameField[column + 1][row] = gameField[column][row];
                         gameField[column][row] = 0;
@@ -111,6 +117,6 @@ public class Game {
             }
         }
         fillEmpty();
-        window.display(gameField);
+        window.display(gameField, points);
     }
 }
